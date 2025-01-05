@@ -1,0 +1,48 @@
+# Temp
+./github/
+workflows/
+publish-conan.yml
+
+
+# Build Folders
+build/
+cmake-build-*
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+
+# Conan
+.conan/
+conanbuildinfo.txt
+conanbuildinfo.cmake
+conan.lock
+
+# VS Code
+/.vscode
+
+# OS and Editor Files
+.DS_Store
+Thumbs.db
+.vscode/
+*.swp
+*.swo
+*.user
+
+# Logs and Temporary Files
+*.log
+*.tmp
+
+# Compiled Library/Executable Files
+*.obj
+*.o
+*.so
+*.dll
+*.dylib
+*.lib
+*.a
+*.exe
+
+# Other: If you generate coverage, debug, or other reports, ignore them:
+*.gcno
+*.gcda
+*.gcov

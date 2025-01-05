@@ -1,0 +1,9 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+set(OptionsPricingModels_VERSION "@PROJECT_VERSION@")
+
+include("${CMAKE_CURRENT_LIST_DIR}/OptionsPricingModelsTargets.cmake")
+
+set(OptionsPricingModels_INCLUDE_DIRS "@CMAKE_CURRENT_SOURCE_DIR@/../include")
