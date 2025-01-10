@@ -24,13 +24,17 @@ jobs:
           python -m pip install --upgrade pip
           pip install conan
 
-      - name: Install CMake
+      - name: Install CMake and Ninja
         run: |
           sudo apt-get update
-          sudo apt-get install -y cmake
+          sudo apt-get install -y cmake ninja-build
 
       - name: Create build directory
         run: mkdir build
+        working-directory: ${{ github.workspace }}
+
+      - name: Detect Conan profile
+        run: conan profile detect
         working-directory: ${{ github.workspace }}
 
       - name: Configure project with Conan
@@ -38,7 +42,7 @@ jobs:
         working-directory: ${{ github.workspace }}
 
       - name: Configure CMake
-        run: cmake .. -DCMAKE_BUILD_TYPE=Release
+        run: cmake .. -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
         working-directory: ${{ github.workspace }}/build
 
       - name: Build project
