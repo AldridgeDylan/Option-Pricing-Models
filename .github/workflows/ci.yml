@@ -41,10 +41,6 @@ jobs:
         run: conan install .. --output-folder=build --build=missing
         working-directory: ${{ github.workspace }}/build
 
-      - name: Verify Conan Toolchain File
-        run: ls build/conan_toolchain.cmake
-        working-directory: ${{ github.workspace }}
-
       - name: Configure CMake
         run: cmake .. -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
         working-directory: ${{ github.workspace }}/build
