@@ -6,7 +6,7 @@ The **Options Pricing Models** library provides a collection of models to simpli
 
 ## Features
 
-- **Multiple Pricing Models:** Black-Scholes, Monte Carlo, Binomial Tree, and more.
+- **Multiple Pricing Models:** Black-Scholes, Monte Carlo and Binomial Tree.
 - **Unified Interface:** Consistent method signatures across different models.
 - **Extensibility:** Easily add new pricing models by inheriting from the base `PricingModel` class.
 - **Performance Optimization:** Analytical models for speed and simulation-based models for flexibility.
@@ -22,17 +22,17 @@ BlackScholesModel bs;
 double result = bs.price(option, S0, r, sigma);
 ```
 
-### 2. Monte Carlo ###
-Simulates random price paths under the risk-neutral measure. 
+### 2. Binomial Model ###
+Provides a discrete-time framework for modeling the evolution of asset prices, allowing for the evaluation of option prices by considering multiple possible paths the underlying asset's price might take until the option's expiration.
 
 **Usage Example:**
 
 ```
-MonteCarloModel mc(100000); // e.g. 100k paths
-double result = mc.price(option, S0, r, sigma);
+BinomialModel bm;
+double result = mb.price(option, S0, r, sigma);
 ```
 
-### 2. Monte Carlo ###
+### 3. Monte Carlo ###
 Simulates random price paths under the risk-neutral measure. 
 
 **Usage Example:**
@@ -59,10 +59,6 @@ double result = mc.price(option, S0, r, sigma);
    double optionPrice = bs.price(myOption, 100.0, 0.05, 0.2);
    // S0 = 100, r = 5%, sigma = 0.2
    ```
-
-## Additional Notes
-- **Extensibility**: You can add new models by inheriting from `PricingModel` and overriding the `price(...)` function.
-- **Performance**: Analytical methods are typically faster but handle fewer complexities. Monte Carlo and binomial approaches can model more scenarios but may be slower.
 
 ## Contact And Support
 - Issues: Report bugs or request features via the Issues Page.

@@ -29,17 +29,17 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y cmake ninja-build
 
-      - name: Create build directory
-        run: mkdir build
-        working-directory: ${{ github.workspace }}
-
       - name: Detect Conan profile
         run: conan profile detect
         working-directory: ${{ github.workspace }}
 
-      - name: Configure project with Conan
-        run: conan install . --output-folder=build --build=missing
+      - name: Create build directory
+        run: mkdir build
         working-directory: ${{ github.workspace }}
+
+      - name: Configure project with Conan
+        run: conan install .. --output-folder=build --build=missing
+        working-directory: ${{ github.workspace }}/build
 
       - name: Configure CMake
         run: cmake .. -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
