@@ -1,15 +1,30 @@
 from conan import ConanFile
-from conan.tools.cmake import CMake
+from conan.tools.cmake import CMake, CMakeToolchain, cmake_layout
 
 class OptionsPricingModelsConan(ConanFile):
     name = "OptionsPricingModels"
-    version = "1.0.0"
-    license = "MIT" 
-    url = "https://github.com/AldridgeDylan/OptionsPricingModels"
-    description = "A library for pricing derivative options with various models"
-    topics = ("finance", "options", "pricing")
+    version = "1.0"
+    license = "MIT"
+    author = "Dylan Aldridge"
+    url = "https://github.com/AldridgeDylan/Options-Pricing-Models"
+    description = "Option Pricing Models using C++ and CMake"
+    topics = ("finance", "option-pricing", "black-scholes")
     settings = "os", "compiler", "build_type", "arch"
-    generators = "cmake"
+    generators = "CMakeDeps"
+
+    def layout(self):
+        cmake_layout(self)
+
+    def requirements(self):
+        self.requires("gtest/1.13.0")
+
+    def build_requirements(self):
+        self.tool_requires("cmake/3.25.0")
+
+    def generate(self):
+        tc = CMakeToolchain(self)
+        tc.generate_single_config = True
+        tc.generate()
 
     def build(self):
         cmake = CMake(self)
@@ -17,12 +32,8 @@ class OptionsPricingModelsConan(ConanFile):
         cmake.build()
 
     def package(self):
-        self.copy("*.h", dst="include/OptionsPricingModels", src="include/OptionsPricingModels")
-        self.copy("*.hpp", dst="include/OptionsPricingModels", src="include/OptionsPricingModels")
-        self.copy("*.a", dst="lib", keep_path=False)
-        self.copy("*.lib", dst="lib", keep_path=False)
-        self.copy("*.so", dst="lib", keep_path=False)
-        self.copy("*.dll", dst="bin", keep_path=False)
+        cmake = CMake(self)
+        cmake.install()
 
     def package_info(self):
         self.cpp_info.libs = ["OptionsPricingModels"]

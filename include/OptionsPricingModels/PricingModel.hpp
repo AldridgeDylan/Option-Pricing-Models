@@ -1,5 +1,5 @@
-#ifndef OPTIONSPRICINGMODELS_PRICINGMODEL_HPP
-#define OPTIONSPRICINGMODELS_PRICINGMODEL_HPP
+#ifndef PRICINGMODEL_HPP
+#define PRICINGMODEL_HPP
 
 #include "Option.hpp"
 
@@ -7,7 +7,7 @@ namespace OptionsPricingModels {
 
   class PricingModel {
     public:
-      virtual ~PricingModel() {}
+      virtual ~PricingModel() = default;
       virtual double price(const Option& opt, double S0, double r, double sigma) = 0;
   };
 

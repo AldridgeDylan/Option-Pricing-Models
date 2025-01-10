@@ -1,9 +1,21 @@
 @PACKAGE_INIT@
 
-include(CMakeFindDependencyMacro)
-
-set(OptionsPricingModels_VERSION "@PROJECT_VERSION@")
-
 include("${CMAKE_CURRENT_LIST_DIR}/OptionsPricingModelsTargets.cmake")
 
-set(OptionsPricingModels_INCLUDE_DIRS "@CMAKE_CURRENT_SOURCE_DIR@/../include")
+# Ensure that the package version file is included
+include(CMakeFindDependencyMacro)
+
+# Add any dependencies here, for example:
+# find_dependency(SomeDependency REQUIRED)
+
+# Provide the package version
+set(PACKAGE_VERSION "@PACKAGE_VERSION@")
+
+# Provide the package configuration
+set(OptionsPricingModels_INCLUDE_DIRS "${CMAKE_CURRENT_LIST_DIR}/../include")
+set(OptionsPricingModels_LIBRARIES OptionsPricingModels)
+
+# Provide the package targets
+if(NOT TARGET OptionsPricingModels::OptionsPricingModels)
+    add_library(OptionsPricingModels::OptionsPricingModels ALIAS OptionsPricingModels)
+endif()

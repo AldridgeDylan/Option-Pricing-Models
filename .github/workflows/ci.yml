@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install Conan
+        run: |
+          python -m pip install --upgrade pip
+          pip install conan
+
+      - name: Install CMake
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y cmake
+
+      - name: Create build directory
+        run: mkdir build
+        working-directory: ${{ github.workspace }}
+
+      - name: Configure project with Conan
+        run: conan install . --output-folder=build --build=missing
+        working-directory: ${{ github.workspace }}
+
+      - name: Configure CMake
+        run: cmake .. -DCMAKE_BUILD_TYPE=Release
+        working-directory: ${{ github.workspace }}/build
+
+      - name: Build project
+        run: cmake --build .
+        working-directory: ${{ github.workspace }}/build
+
+      - name: Run tests
+        run: ctest --output-on-failure
+        working-directory: ${{ github.workspace }}/build

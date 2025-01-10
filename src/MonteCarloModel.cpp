@@ -1,5 +1,4 @@
-#include "OptionsPricingModels/simulation/MonteCarloModel.hpp"
-#include "../util/Utility.hpp"
+#include "OptionsPricingModels/MonteCarloModel.hpp"
 
 #include <random>
 #include <cmath>
@@ -10,7 +9,7 @@ namespace OptionsPricingModels {
 
 	double MonteCarloModel::price(const Option& opt, double S0, double r, double sigma) {
 
-    double T = opt.getMaturity();
+    double T = opt.getTimeToMaturity();
 		
     std::random_device rd;
 		std::mt19937 gen(rd());
@@ -23,7 +22,7 @@ namespace OptionsPricingModels {
       sumPayoffs += opt.payoff(ST);
     }
     double meanPayoff = sumPayoffs / numPaths;
-    double discount = internal::Utility::discountFactor(r, T);
+    double discount = (T > 0) ? std::exp(-r * T) : 1.0;
     return meanPayoff * discount;
 	}
 

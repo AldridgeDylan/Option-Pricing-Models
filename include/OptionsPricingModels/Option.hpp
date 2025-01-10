@@ -1,25 +1,29 @@
-#ifndef OPTIONSPRICINGMODELS_OPTION_HPP
-#define OPTIONSPRICINGMODELS_OPTION_HPP
+#ifndef OPTION_HPP
+#define OPTION_HPP
 
 namespace OptionsPricingModels {
 
-  enum class OptionType { Call, Put };
+    enum class OptionType {
+        Call,
+        Put
+    };
 
-  class Option {
-		public:
-			Option(double strike, double maturity, OptionType type);
+    class Option {
+    public:
+        Option(double strike, double maturity, OptionType type)
+            : strikePrice(strike), timeToMaturity(maturity), optionType(type) {}
 
-			double getStrike() const;
-			double getMaturity() const;
-			OptionType getOptionType() const;
+        double getStrikePrice() const { return strikePrice; }
+        double getTimeToMaturity() const { return timeToMaturity; }
+        OptionType getOptionType() const { return optionType; }
 
-			double payoff(double S) const;
+		double payoff(double S) const;
 
-		private:
-			double K;
-			double T;
-			OptionType optType;
-		};
+    private:
+        double strikePrice;
+        double timeToMaturity;
+        OptionType optionType;
+    };
 
 }
 
