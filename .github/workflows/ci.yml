@@ -33,18 +33,22 @@ jobs:
         run: conan profile detect
         working-directory: ${{ github.workspace }}
 
-      - name: Configure project with Conan
-        run: conan install . --output-folder=build --build=missing
+      - name: Create build directory
+        run: mkdir build
         working-directory: ${{ github.workspace }}
 
+      - name: Configure project with Conan
+        run: conan install ..
+        working-directory: ${{ github.workspace }}/build
+
       - name: Configure CMake
-        run: cmake . -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=conan_toolchain.cmake
-        working-directory: ${{ github.workspace }}
+        run: cmake .. -DCMAKE_BUILD_TYPE=Release -G Ninja -DCMAKE_TOOLCHAIN_FILE=Release/generators/conan_toolchain.cmake
+        working-directory: ${{ github.workspace }}/build
 
       - name: Build project
         run: cmake --build .
-        working-directory: ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}/build
 
       - name: Run tests
         run: ctest --output-on-failure
-        working-directory: ${{ github.workspace }}
+        working-directory: ${{ github.workspace }}/build
