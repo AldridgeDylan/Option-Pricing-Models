@@ -4,6 +4,8 @@ Options are financial derivatives that grant the holder the right, but not the o
 
 The **Options Pricing Models** library provides a collection of models to simplify the process of pricing derivative options. By offering multiple models under a unified interface, users can select the most appropriate model based on their specific needs and scenarios.
 
+This library can be built using [conan](https://conan.io).
+
 ## Features
 
 - **Multiple Pricing Models:** Black-Scholes, Monte Carlo and Binomial Tree.
