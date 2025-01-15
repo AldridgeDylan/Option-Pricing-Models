@@ -38,7 +38,7 @@ jobs:
         working-directory: ${{ github.workspace }}
 
       - name: Configure project with Conan
-        run: conan install ..
+        run: conan install .. --build=missing
         working-directory: ${{ github.workspace }}/build
 
       - name: Configure CMake

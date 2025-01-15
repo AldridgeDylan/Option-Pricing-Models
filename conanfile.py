@@ -7,7 +7,7 @@ class OptionsPricingModelsConan(ConanFile):
     license = "MIT"
     author = "Dylan Aldridge"
     url = "https://github.com/AldridgeDylan/Options-Pricing-Models"
-    description = "Option Pricing Models using C++ and CMake"
+    description = "Option Pricing Models using C++"
     topics = ("finance", "option-pricing", "black-scholes")
     settings = "os", "compiler", "build_type", "arch"
     generators = "CMakeDeps"
